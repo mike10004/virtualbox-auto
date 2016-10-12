@@ -1,0 +1,13 @@
+# /etc/systemd/system/virtualbox-auto.service
+
+[Unit]
+Description=automatic VirtualBox VMs
+Requires=virtualbox.service
+After=virtualbox.service
+
+[Service]
+ExecStart=/usr/lib/virtualbox-auto/virtualbox_auto_start.py
+ExecStop=/usr/lib/virtualbox-auto/virtualbox_auto_stop.py
+
+[Install]
+WantedBy=multi-user.target
