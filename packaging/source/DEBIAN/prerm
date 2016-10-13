@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+# clean up python files
+if which pyclean >/dev/null 2>&1; then
+	pyclean -p virtualbox-auto 
+else
+	dpkg -L virtualbox-auto | grep \.py$ | while read file
+	do
+		rm -f "${file}"[co] >/dev/null
+  	done
+fi
+
+# end python cleanup

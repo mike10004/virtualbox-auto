@@ -1,6 +1,0 @@
-#!/bin/sh
-set -e
-
-# don't do anything here
-
-true

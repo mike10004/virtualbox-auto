@@ -37,8 +37,8 @@ class MachineStopper(virtualbox_auto_common.MachineActor):
 def main(args):
     machines, errors = virtualbox_auto_common.load_machines(args.conf_dir, verbose=args.verbose)
     args.dry_run = virtualbox_auto_common.create_dry_run_function(args.dry_run)
-    starter = MachineStopper(args.dry_run or False)
-    returncodes = starter.stop_all(machines)
+    stopper = MachineStopper(args.dry_run or False)
+    returncodes = stopper.stop_all(machines)
     print len(errors), 'configuration errors; return codes:', returncodes
     if len(errors) > 0: return 1
     if sum(returncodes) > 0: return 2

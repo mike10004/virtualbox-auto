@@ -1,11 +1,11 @@
-Package: virtualbox-auto
-Version: 0.1-1
+Package: @PACKAGE_NAME@
+Version: @DEBIAN_VERSION@
 Section: misc
 Priority: optional
 Architecture: all
 Depends: python, python2.7 (>= 2.7.9)
 Standards-Version: 3.9.5
-Maintainer: Mike Chaberski <mchaberski+dev@gmail.com>
+Maintainer: Mike Chaberski <mchaberski@gmail.com>
 Description: Automatic starting and stopping of VirtualBox VMs.
  This package installs a systemd service that automatically starts
  and stops VMs based on configuration files.

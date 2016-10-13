@@ -4,17 +4,17 @@ set -e
 
 # Would have been automatically added by dh_systemd_enable
 # This will only remove masks created by d-s-h on package removal.
-deb-systemd-helper unmask virtualbox-auto.service >/dev/null || true
+deb-systemd-helper unmask @PACKAGE_NAME@.service >/dev/null || true
 
 # was-enabled defaults to true, so new installations run enable.
-if deb-systemd-helper --quiet was-enabled virtualbox-auto.service; then
+if deb-systemd-helper --quiet was-enabled @PACKAGE_NAME@.service; then
 	# Enables the unit on first installation, creates new
 	# symlinks on upgrades if the unit file has changed.
-	deb-systemd-helper enable virtualbox-auto.service >/dev/null || true
+	deb-systemd-helper enable @PACKAGE_NAME@.service >/dev/null || true
 else
 	# Update the statefile to add new symlinks (if any), which need to be
 	# cleaned up on purge. Also remove old symlinks.
-	deb-systemd-helper update-state virtualbox-auto.service >/dev/null || true
+	deb-systemd-helper update-state @PACKAGE_NAME@.service >/dev/null || true
 fi
 # End would-have-been-automatically-added section
 
