@@ -1,3 +1,9 @@
+virtualbox-auto (0.5-1) unstable; urgency=low
+
+  * Change systemd service type.
+
+ -- Mike Chaberski <mchaberski@gmail.com>  Thu, 13 Oct 2016 12:32:00 -0400
+
 virtualbox-auto (0.4-1) unstable; urgency=low
 
   * Fix bug in start and stop programs.

@@ -6,6 +6,8 @@ Requires=virtualbox.service
 After=virtualbox.service
 
 [Service]
+Type=oneshot
+RemainAfterExit=yes
 ExecStart=/usr/lib/virtualbox-auto/virtualbox_auto_start.py --verbose
 ExecStop=/usr/lib/virtualbox-auto/virtualbox_auto_stop.py --verbose
 
