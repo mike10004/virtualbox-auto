@@ -3,7 +3,7 @@ Version: @DEBIAN_VERSION@
 Section: misc
 Priority: optional
 Architecture: all
-Depends: python, python2.7 (>= 2.7.9)
+Depends: python, python2.7 (>= 2.7.9), virtualbox (>= 5.0)
 Standards-Version: 3.9.5
 Maintainer: Mike Chaberski <mchaberski@gmail.com>
 Description: Automatic starting and stopping of VirtualBox VMs.

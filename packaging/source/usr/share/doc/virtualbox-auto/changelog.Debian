@@ -1,3 +1,10 @@
+virtualbox-auto (0.5-2) unstable; urgency=low
+
+  * Rearrange readme files.
+  * Depend on virtualbox.
+
+ -- Mike Chaberski <mchaberski@gmail.com>  Thu, 13 Oct 2016 16:13:52 -0400
+
 virtualbox-auto (0.5-1) unstable; urgency=low
 
   * Change systemd service type.

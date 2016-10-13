@@ -54,7 +54,7 @@ cp "$PROJECT_DIR/virtualbox_auto_start.py" \
 
 ETC_DIR="$STAGE/etc/${PKGNAME}"
 mkdir -p "$ETC_DIR"
-cp "$PROJECT_DIR/README.md" "${ETC_DIR}/README"
+cp "$PROJECT_DIR/CONFIG.md" "${ETC_DIR}/README"
 
 SYSTEMD_UNIT_FILES_DIR="$STAGE/lib/systemd/system"
 mkdir -p "$SYSTEMD_UNIT_FILES_DIR"
