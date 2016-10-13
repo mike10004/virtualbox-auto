@@ -6,8 +6,8 @@ Requires=virtualbox.service
 After=virtualbox.service
 
 [Service]
-ExecStart=/usr/lib/virtualbox-auto/virtualbox_auto_start.py
-ExecStop=/usr/lib/virtualbox-auto/virtualbox_auto_stop.py
+ExecStart=/usr/lib/virtualbox-auto/virtualbox_auto_start.py --verbose
+ExecStop=/usr/lib/virtualbox-auto/virtualbox_auto_stop.py --verbose
 
 [Install]
 WantedBy=multi-user.target

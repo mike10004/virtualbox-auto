@@ -3,6 +3,14 @@
 # Script that builds a deb package.
 
 PROG=make-package.sh
+fail() {
+    EXIT_CODE=$1
+    MESSAGE=$2
+    echo "${PROG}: ${MESSAGE}" >&2
+    exit $EXIT_CODE
+}
+
+./run-primitive-tests.sh > /dev/null || fail $? "primitive tests failed"
 
 PROJECT_DIR="$(dirname $0)"
 if [ "$PROJECT_DIR" == "." ] ; then
@@ -20,13 +28,6 @@ PKGNAME=virtualbox-auto
 rm -rf "$OUTPUT" || exit $?
 mkdir -p "$OUTPUT" || exit $?
 cp -r "${PACKAGING_SOURCE}" "${STAGE}"  || exit $?
-
-fail() {
-    EXIT_CODE=$1
-    MESSAGE=$2
-    echo "${PROG}: ${MESSAGE}" >&2
-    exit $EXIT_CODE
-}
 
 # Substitute variables into control files
 CONTROL_FILE_DIR="${STAGE}/DEBIAN"

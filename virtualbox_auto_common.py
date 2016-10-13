@@ -19,10 +19,11 @@ def load_machines(conf_dir, verbose=False):
     """
     if not os.path.isdir(conf_dir):
         print >> sys.stderr, "configuration directory not found:", conf_dir
-        return [] 
+        return tuple(), tuple()
     conf_files = glob(os.path.join(conf_dir, '*.auto'))
     machines = []
-    #if verbose: print "reading from files:", str(conf_files)
+    if verbose: 
+        print "reading from %d files:" % len(conf_files), str(conf_files)
     errors = []
     for conf_file in conf_files:
         with open(conf_file, 'r') as ifile:
@@ -34,7 +35,7 @@ def load_machines(conf_dir, verbose=False):
                 continue
             if 'id' not in machine:
                 machine_name = os.path.splitext(os.path.basename(conf_file))[0]
-                machine['id'] = machine_name # todo: check not empty
+                machine['id'] = machine_name  # todo: check not empty
             machines.append(machine)
     return machines, errors
 
@@ -42,26 +43,26 @@ def print_command(cmd):
     print ' '.join(cmd)
 
 class FirstTimeFailer:
-    
+
     def __init__(self):
         self.failed = False
-    
+
     def go(self, cmd):
         if self.failed: 
             return 0
         else: 
             self.failed = True
             return 1
-    
+
     def as_single_arg_function(self):
         def fn(cmd):
             return self.go(cmd)
         return fn
 
 def create_dry_run_function(dry_run_arg):
-    if dry_run_arg == False:
+    if dry_run_arg is False:
         return False
-    if dry_run_arg is None: # means --dry-run with no argument was specified
+    if dry_run_arg is None:  # means --dry-run with no argument was specified
         return create_dry_run_function('succeed')
     spec = dry_run_arg
     if spec == 'fail':
@@ -75,14 +76,18 @@ def create_dry_run_function(dry_run_arg):
 
 class MachineActor:
 
-    def __init__(self, dry_run=False):
+    def __init__(self, dry_run=False, verbose=False):
+        self.verbose = verbose
         if dry_run:
+            if verbose: 
+                print "operating in dry run mode"
             if not callable(dry_run): 
                 raise ValueError("dry_run argument must be False or a function")
         self._execute = dry_run or subprocess.call
 
 def add_arguments(parser):
-    parser.add_argument("--conf-dir", help="directory from which *.auto files are read", default=(os.getenv("VIRTUALBOX_AUTO_CONF_DIR") or "/etc/virtualbox-auto"), metavar="DIRNAME")
+    parser.add_argument("--conf-dir", help="directory from which *.auto files are read", 
+                        default=(os.getenv("VIRTUALBOX_AUTO_CONF_DIR") or "/etc/virtualbox-auto"), metavar="DIRNAME")
     parser.add_argument("--dry-run", nargs="?", help="dry run mode", default=False)
     parser.add_argument("--verbose", action="store_true", default="False", help="print more messages about processing")
     return parser
@@ -95,4 +100,3 @@ def escape_vm_id(vmid):
         if ch not in _VM_ID_ALLOWED_CHARS:
             raise ValueError("vm id contains invalid characters: " + vmid)
     return vmid
-        

@@ -1,3 +1,21 @@
+virtualbox-auto (0.4-1) unstable; urgency=low
+
+  * Fix bug in start and stop programs.
+
+ -- Mike Chaberski <mchaberski@gmail.com>  Thu, 13 Oct 2016 11:51:00 -0400
+
+virtualbox-auto (0.3-1) unstable; urgency=low
+
+  * Fix syntax errors and conform to some PEP-8 style suggestions.
+
+ -- Mike Chaberski <mchaberski@gmail.com>  Thu, 13 Oct 2016 11:33:00 -0400
+
+virtualbox-auto (0.2-1) unstable; urgency=low
+
+  * Support optionally verbose output.
+
+ -- Mike Chaberski <mchaberski@gmail.com>  Thu, 13 Oct 2016 11:24:00 -0400
+
 virtualbox-auto (0.1-2) unstable; urgency=low
 
   * Clean up .pyc files on package removal.
