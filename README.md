@@ -1,9 +1,8 @@
 virtualbox-auto
 ===============
 
-This repository contains a **systemd** service file that causes Python 
-programs that start and stop VirtualBox VMs to be executed on boot and 
-shutdown.
+This is a **systemd** service that starts and stops VirtualBox VMs on
+system boot and shutdown.
 
 ## Configuration
 
