@@ -11,6 +11,7 @@ import os
 import os.path
 import sys
 import virtualbox_auto_common
+from virtualbox_auto_common import KEY_ID, KEY_STARTUP_DELAY, KEY_USER
 import time
 
 class MachineStarter(virtualbox_auto_common.MachineActor):
@@ -19,10 +20,10 @@ class MachineStarter(virtualbox_auto_common.MachineActor):
         virtualbox_auto_common.MachineActor.__init__(self, dry_run, verbose)
 
     def start(self, vm):
-        vmuser = vm['user'] or os.getenv('USER')
-        vmid = virtualbox_auto_common.escape_vm_id(vm['id'])
+        vmuser = vm[KEY_USER] or os.getenv('USER')
+        vmid = virtualbox_auto_common.escape_vm_id(vm[KEY_ID])
         try:
-            delay = float(vm['startdelay'] or '0')
+            delay = float(vm[KEY_STARTUP_DELAY] or '0')
             cmd = ['su', vmuser, "-c", "/usr/bin/vboxmanage startvm \"%s\" --type headless" % (vmid,)]
             if delay > 0:
                 if self.verbose: 

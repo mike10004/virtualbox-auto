@@ -11,6 +11,7 @@ import os
 import os.path
 import sys
 import virtualbox_auto_common
+from virtualbox_auto_common import KEY_ID, KEY_STOP_ACTION, KEY_USER
 from collections import defaultdict
 
 _ALLOWED_STOP_ACTIONS = ('savestate', 'poweroff', 'acpipowerbutton')
@@ -21,9 +22,9 @@ class MachineStopper(virtualbox_auto_common.MachineActor):
         virtualbox_auto_common.MachineActor.__init__(self, dry_run, verbose)
 
     def stop(self, vm):
-        vmuser = vm.get('user', os.getenv('USER'))
-        vmid = virtualbox_auto_common.escape_vm_id(vm['id'])
-        stopaction = vm.get('stop_action', 'savestate')
+        vmuser = vm.get(KEY_USER, os.getenv('USER'))
+        vmid = virtualbox_auto_common.escape_vm_id(vm[KEY_ID])
+        stopaction = vm.get(KEY_STOP_ACTION, 'savestate')
         if stopaction not in _ALLOWED_STOP_ACTIONS:
             print >> sys.stderr, "%s: stop action not allowed: %s" % (vmid, stopaction)
             return 1
