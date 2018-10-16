@@ -4,12 +4,20 @@ virtualbox-auto
 This is a **systemd** service that starts and stops VirtualBox VMs on
 system boot and shutdown.
 
-## Configuration
+## Installation and configuration
 
-The VMs to be automatically started and stopped are specified by files 
-in the configuration directory `/etc/virtualbox-auto`. See 
-`CONFIG.md` for details, but as a quick tutorial, if you create a file
-named `/etc/virtualbox-auto/quickstart.auto` and populate it with text
+Download the latest release here: https://github.com/mike10004/virtualbox-auto/releases
+
+Install by executing 
+
+    $ sudo dpkg --install build/virtualbox-auto_${VERSION}_all.deb
+
+(Replace `${VERSION}` with the appropriate string.)
+
+Specify that a VMs is to be automatically started and stopped by creating
+a file in the configuration directory `/etc/virtualbox-auto`. See `CONFIG.md` 
+for details, but as a quick tutorial, if you create a file named 
+`/etc/virtualbox-auto/quickstart.auto` and populate it with text
 
     {
         "id": "my_machine",
@@ -51,8 +59,4 @@ You can build a `.deb` package for the service by running
 
 from the directory where the repository was cloned. Your mileage may 
 vary with that script, but if it works it will create a file named 
-`build/virtualbox-auto_${VERSION}_all.deb`. You can install this by 
-executing 
-
-    $ sudo dpkg --install build/virtualbox-auto_${VERSION}_all.deb
-
+`build/virtualbox-auto_${VERSION}_all.deb`.
