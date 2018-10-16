@@ -11,6 +11,7 @@ import os
 import os.path
 import sys
 import virtualbox_auto_common
+import time
 
 class MachineStarter(virtualbox_auto_common.MachineActor):
 
@@ -20,9 +21,19 @@ class MachineStarter(virtualbox_auto_common.MachineActor):
     def start(self, vm):
         vmuser = vm['user'] or os.getenv('USER')
         vmid = virtualbox_auto_common.escape_vm_id(vm['id'])
-        cmd = ['su', vmuser, "-c", "/usr/bin/vboxmanage startvm \"%s\" --type headless" % (vmid,)]
-        virtualbox_auto_common.print_command(cmd)
-        return self._execute(cmd)
+        try:
+            delay = float(vm['startdelay'] or '0')
+            cmd = ['su', vmuser, "-c", "/usr/bin/vboxmanage startvm \"%s\" --type headless" % (vmid,)]
+            if delay > 0:
+                if self.verbose: 
+                    print >> sys.stderr, "%s: sleeping for %s seconds" % (vmid, delay)
+                time.sleep(delay)
+            virtualbox_auto_common.print_command(cmd)
+            return self._execute(cmd)
+        except Exception as e:
+            print >> sys.stderr, "virtualbox_auto_start: failure on %s" % vmid
+            print >> sys.stderr, e
+            return 255
 
     def start_all(self, machines):
         return [self.start(vm) for vm in machines]

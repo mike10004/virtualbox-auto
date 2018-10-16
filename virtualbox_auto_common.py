@@ -13,6 +13,12 @@ from glob import glob
 import json 
 import subprocess
 import sys
+from collections import defaultdict 
+
+KEY_USER =  'user'
+KEY_STARTUP_DELAY = 'startup_delay'
+KEY_ID = 'id'
+KEY_STOP_ACTION = 'stop_action'
 
 def load_machines(conf_dir, verbose=False):
     """Loads VM configurations from a configuration directory.
@@ -36,7 +42,9 @@ def load_machines(conf_dir, verbose=False):
             if 'id' not in machine:
                 machine_name = os.path.splitext(os.path.basename(conf_file))[0]
                 machine['id'] = machine_name  # todo: check not empty
-            machines.append(machine)
+            better_machine = defaultdict(lambda: None)
+            better_machine.update(machine)
+            machines.append(better_machine)
     return machines, errors
 
 def print_command(cmd):

@@ -15,7 +15,8 @@ A fully populated configuration object would look like
     {
         "id": "virtual-machine-name-or-uuid",
         "user": "vmowner",             
-        "stop_action": "savestate"
+        "stop_action": "savestate",
+        "startup_delay": 5
     }
 
 All fields are optional, and their meanings are as follows:
@@ -26,6 +27,11 @@ All fields are optional, and their meanings are as follows:
 * **user** the user that owns the VM; default is "root"
 * **stop_action** the `controlvm` parameter that stops the VM; valid 
   values are `savestate`, `poweroff`, and `acpipowerbutton`
+* **startup_delay** duration in seconds to pause before starting the VM
+
+Note that the VMs are started consecutively, so the actual start times
+of VMs processed later are affected by the startup delays of VMs processed 
+earlier.
 
 Empty file (default options)
 ----------------------------

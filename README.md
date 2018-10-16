@@ -21,7 +21,29 @@ named `/etc/virtualbox-auto/quickstart.auto` and populate it with text
 `my_machine` that is owned by `vmowner`, and on system shutdown the
 service will stop the VM with the `savestate` command.
 
-## Building a package
+## Background
+
+Everyone knows that if you want to start VMs automatically on host boot, all 
+you need to do is read https://www.virtualbox.org/manual/ch09.html#autostart
+and *voila*, they start. However, if you actually go and do that, at least
+on Linux, you find that nothing happens. If you dig deeper, you learn that
+there's an `init` service called `vboxautostart-service`, but then if you dig
+just a little bit deeper, you find that the service is not present in 
+VirtualBox versions 5.0 and above. Plus, it was an `init` service, and your
+PID 1 is probably *systemd* now, so you can't even just downgrade. 
+
+The **virtualbox-auto.service** *systemd* unit simplifies some configuration 
+aspects of automatically starting VMs on host boot, and for better or worse 
+it avoids using the stock mechanism at all. Some features that the stock 
+mechanism supports are not available here, so it may not fit your needs as 
+well. On the upside, it's pretty simple to understand how it works.
+
+On boot, the *systemd* unit executes `virtualbox_auto_start.py`, which reads
+your configuration files and uses `VBoxManage` to start machines in headless 
+mode. On shutdown, the unit executes `virtualbox_auto_stop.py`, which stops 
+those machines.
+
+## Building the installer
 
 You can build a `.deb` package for the service by running 
 
