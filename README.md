@@ -14,7 +14,7 @@ Install by executing
 
 (Replace `${VERSION}` with the appropriate string.)
 
-Specify that a VMs is to be automatically started and stopped by creating
+Specify that a VM is to be automatically started and stopped by creating
 a file in the configuration directory `/etc/virtualbox-auto`. See `CONFIG.md` 
 for details, but as a quick tutorial, if you create a file named 
 `/etc/virtualbox-auto/quickstart.auto` and populate it with text
